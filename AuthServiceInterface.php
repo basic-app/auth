@@ -6,7 +6,7 @@
  */
 namespace BasicApp\Auth;
 
-interface AuthServiceInterface
+interface AuthInterface
 {
     
     public function login($id, $rememberMe = true);

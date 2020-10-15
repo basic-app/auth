@@ -6,7 +6,7 @@
  */
 namespace BasicApp\Auth;
 
-class AuthService implements AuthServiceInterface
+class AuthService implements AuthInterface
 {
 
     public $sessionKey;
