@@ -48,7 +48,7 @@ abstract class BaseAuthService implements AuthInterface
 
         if ($return)
         {
-            if (!$this->validateToken())
+            if (!$this->rememberMe->validateToken())
             {
                 $this->logout();
 
