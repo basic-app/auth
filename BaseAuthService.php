@@ -6,12 +6,14 @@
  */
 namespace BasicApp\Auth;
 
-class AuthService implements AuthInterface
+abstract class BaseAuthService implements AuthInterface
 {
 
     public $sessionKey;
 
     protected $rememberMe;
+
+    abstract public function getUser();
 
     public function __construct(RememberMe $rememberMe, string $sessionKey = 'userId')
     {
@@ -71,5 +73,15 @@ class AuthService implements AuthInterface
 
         $this->rememberMe->unsetToken();
     }
+
+    public function isGuest() : bool
+    {
+        return $this->getUser() ? false : true;
+    }
+
+    public function isLogged()
+    {
+        return !$this->isGuest();
+    }    
 
 }

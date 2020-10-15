@@ -15,4 +15,10 @@ interface AuthInterface
 
     public function logout();
 
+    public function isLogged() : bool;
+
+    public function isGuest() : bool;
+
+    public function getUser();
+
 }
