@@ -79,7 +79,7 @@ abstract class BaseAuthService implements AuthInterface
         return $this->getUser() ? false : true;
     }
 
-    public function isLogged()
+    public function isLogged() : bool
     {
         return !$this->isGuest();
     }    
