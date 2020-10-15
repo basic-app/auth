@@ -125,8 +125,6 @@ class RememberMe
 
     public function unsetToken()
     {
-        $session = Services::session();
-
         return service('session')->remove($this->sessionKey);
     }
 
