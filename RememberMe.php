@@ -35,7 +35,7 @@ class RememberMe
 
     public $cookiePrefix;
 
-    public function __construct(string $cookieName, string $sessionKey)
+    public function __construct(string $sessionKey = 'userRememberMe', string $cookieName = 'userRememberMe')
     {
         $this->cookieName = $cookieName;
 
