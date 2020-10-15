@@ -37,6 +37,8 @@ class RememberMe
 
     public function __construct(string $sessionKey = 'userRememberMe', string $cookieName = 'userRememberMe')
     {
+        helper(['cookie']);
+
         $this->cookieName = $cookieName;
 
         $this->sessionKey = $sessionKey;
@@ -80,15 +82,11 @@ class RememberMe
 
     public function getCookie()
     {
-        helper(['cookie']);
-
         return get_cookie($this->cookieName);
     }
 
     public function setCookie(string $token)
     {
-        helper(['cookie']);
-
         return set_cookie(
             $this->cookieName,
             $token,
@@ -103,8 +101,6 @@ class RememberMe
 
     public function deleteCookie()
     {
-        helper(['cookie']);
-
         return delete_cookie(
             $this->cookieName, 
             $this->cookieDomain, 
