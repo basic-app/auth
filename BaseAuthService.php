@@ -28,9 +28,9 @@ abstract class BaseAuthService implements AuthInterface
 
         if ($rememberMe)
         {
-            $this->rememberMe->unsetToken();
+            $this->rememberMe->removeToken();
 
-            $this->rememberMe->unsetCookie();
+            $this->rememberMe->deleteCookie();
         }
         else
         {
@@ -57,9 +57,9 @@ abstract class BaseAuthService implements AuthInterface
         }
         else
         {
-            $this->rememberMe->unsetToken();
+            $this->rememberMe->removeToken();
 
-            $this->rememberMe->unsetCookie();
+            $this->rememberMe->deleteCookie();
         }
 
         return $return;
@@ -69,9 +69,9 @@ abstract class BaseAuthService implements AuthInterface
     {
         service('session')->remove($this->sessionKey);
 
-        $this->rememberMe->unsetCookie();
+        $this->rememberMe->deleteCookie();
 
-        $this->rememberMe->unsetToken();
+        $this->rememberMe->removeToken();
     }
 
     public function isGuest() : bool

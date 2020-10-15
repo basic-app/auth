@@ -123,7 +123,7 @@ class RememberMe
         return service('session')->set($this->sessionKey, $token);
     }
 
-    public function unsetToken()
+    public function removeToken()
     {
         return service('session')->remove($this->sessionKey);
     }
