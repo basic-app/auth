@@ -9,11 +9,15 @@ namespace BasicApp\Auth;
 interface AuthInterface
 {
     
-    public function login($id, $rememberMe = true);
+    public function login($user, $rememberMe = true, &$error = null);
+
+    public function setUserId($id, $rememberMe = true);
 
     public function getUserId();
 
     public function logout();
+
+    public function unsetUserId();
 
     public function isLogged() : bool;
 

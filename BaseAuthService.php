@@ -14,15 +14,24 @@ abstract class BaseAuthService implements AuthInterface
     protected $rememberMe;
 
     abstract public function getUser();
+    
+    abstract public function login($user, $rememberMe = true, &$error = null);
+    
+    abstract public function logout();
 
-    public function __construct(RememberMe $rememberMe, string $sessionKey = 'userId')
+    public function __construct(string $sessionKey = 'userId', ?RememberMe $rememberMe = null)
     {
+        if (!$rememberMe)
+        {
+            $rememberMe = new RememberMe($sessionKey . 'rememberMe', $sessionKey . 'rememberMe');
+        }
+
         $this->sessionKey = $sessionKey;
     
         $this->rememberMe = $rememberMe;
     }
 
-    public function login($userId, $rememberMe = true)
+    public function setUserId($userId, $rememberMe = true)
     {
         service('session')->set($this->sessionKey, $userId);
 
@@ -65,7 +74,7 @@ abstract class BaseAuthService implements AuthInterface
         return $return;
     }
 
-    public function logout()
+    public function unsetUserId()
     {
         service('session')->remove($this->sessionKey);
 
@@ -82,6 +91,6 @@ abstract class BaseAuthService implements AuthInterface
     public function isLogged() : bool
     {
         return !$this->isGuest();
-    }    
+    }
 
 }
