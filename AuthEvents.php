@@ -12,18 +12,13 @@ use BasicApp\Auth\Events\LogoutEvent;
 class AuthEvents extends \CodeIgniter\Events\Events
 {
 
-    const EVENT_LOGIN = 'ba:login';
+    const EVENT_LOGIN = 'login';
 
-    const EVENT_LOGOUT = 'ba:logout';
+    const EVENT_LOGOUT = 'logout';
 
     public static function onLogin($callback)
     {
         static::on(static::EVENT_LOGIN, $callback);
-    }
-
-    public static function onLogout($callback)
-    {
-        static::on(static::EVENT_LOGOUT, $callback);
     }
 
     public static function login($user, &$error = null)
@@ -39,13 +34,18 @@ class AuthEvents extends \CodeIgniter\Events\Events
         return $event->result;
     }
 
+    public static function onLogout($callback)
+    {
+        static::on(static::EVENT_LOGOUT, $callback);
+    }
+
     public static function logout($user)
     {
         $event = new LogoutEvent;
 
         $event->user = $user;
 
-        static::trigger(static::EVENT_LOGIN, $event);
+        static::trigger(static::EVENT_LOGOUT, $event);
     }
 
 }
