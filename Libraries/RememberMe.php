@@ -79,7 +79,6 @@ class RememberMe
         return true;
     }
 
-
     public function getCookie()
     {
         return get_cookie($this->cookieName);
