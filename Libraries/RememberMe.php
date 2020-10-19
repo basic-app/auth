@@ -13,7 +13,7 @@
  *
  * In this case browser not clean remember me cookie when remember me flag is not checked.
  */
-namespace BasicApp\Auth;
+namespace BasicApp\Auth\Libraries;
 
 use Config\App;
 use Exception;

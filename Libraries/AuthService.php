@@ -4,9 +4,9 @@
  * @license MIT
  * @link https://basic-app.com
  */
-namespace BasicApp\Auth;
+namespace BasicApp\Auth\Libraries;
 
-class AuthService extends \BasicApp\Auth\BaseAuthService
+class AuthService extends \BasicApp\Auth\Libraries\BaseAuthService
 {
 
     protected $_modelClass;

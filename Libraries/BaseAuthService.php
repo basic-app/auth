@@ -4,7 +4,9 @@
  * @license MIT
  * @link https://basic-app.com
  */
-namespace BasicApp\Auth;
+namespace BasicApp\Auth\Libraries;
+
+use BasicApp\Auth\Interfaces\AuthInterface;
 
 abstract class BaseAuthService implements AuthInterface
 {

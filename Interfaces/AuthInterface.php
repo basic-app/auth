@@ -4,7 +4,7 @@
  * @license MIT
  * @link https://basic-app.com
  */
-namespace BasicApp\Auth;
+namespace BasicApp\Auth\Interfaces;
 
 interface AuthInterface
 {

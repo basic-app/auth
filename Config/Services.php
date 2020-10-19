@@ -8,7 +8,7 @@ namespace BasicApp\Auth\Config;
 
 use Exception;
 use CodeIgniter\Config\Services as CoreServices;
-use BasicApp\Auth\AuthService;
+use BasicApp\Auth\Libraries\AuthService;
 
 class Services extends CoreServices
 {
