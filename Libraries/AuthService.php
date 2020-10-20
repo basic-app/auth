@@ -6,7 +6,10 @@
  */
 namespace BasicApp\Auth\Libraries;
 
-class AuthService extends \BasicApp\Auth\Libraries\BaseAuthService
+use CodeIgniter\Model;
+use BasicApp\Auth\Interfaces\AuthInterface;
+
+class AuthService extends BaseAuthService implements AuthInterface
 {
 
     protected $_modelClass;
@@ -20,7 +23,7 @@ class AuthService extends \BasicApp\Auth\Libraries\BaseAuthService
         $this->_modelClass = $modelClass;
     }
 
-    public function getModel(bool $shared = true)
+    public function getModel(bool $shared = true) : Model
     {
         return model($this->_modelClass, $shared);
     }

@@ -6,20 +6,14 @@
  */
 namespace BasicApp\Auth\Libraries;
 
-use BasicApp\Auth\Interfaces\AuthInterface;
+use BasicApp\Auth\Interfaces\BaseAuthInterface;
 
-abstract class BaseAuthService implements AuthInterface
+abstract class BaseAuthService implements BaseAuthInterface
 {
 
     public $sessionKey;
 
     protected $rememberMe;
-
-    abstract public function getUser();
-    
-    abstract public function login($user, $rememberMe = true, &$error = null);
-    
-    abstract public function logout();
 
     public function __construct(string $sessionKey = 'userId', ?RememberMe $rememberMe = null)
     {

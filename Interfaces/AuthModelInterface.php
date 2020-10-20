@@ -4,6 +4,11 @@
  * @license MIT
  * @link https://basic-app.com
  */
+namespace BasicApp\Auth\Interfaces;
+
 interface AuthModelInterface
 {
+
+    public function validatePassword($user, string $password) : bool;
+
 }

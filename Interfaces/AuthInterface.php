@@ -6,23 +6,17 @@
  */
 namespace BasicApp\Auth\Interfaces;
 
-interface AuthInterface
+use CodeIgniter\Model;
+
+interface AuthInterface extends BaseAuthInterface
 {
     
     public function login($user, $rememberMe = true, &$error = null);
 
-    public function setUserId($id, $rememberMe = true);
-
-    public function getUserId();
-
     public function logout();
 
-    public function unsetUserId();
-
-    public function isLogged() : bool;
-
-    public function isGuest() : bool;
-
     public function getUser();
+
+    public function getModel(bool $shared = true) : Model;
 
 }
