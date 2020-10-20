@@ -6,8 +6,6 @@
  */
 namespace BasicApp\Auth\Interfaces;
 
-use CodeIgniter\Model;
-
 interface AuthInterface extends BaseAuthInterface
 {
     
@@ -17,6 +15,6 @@ interface AuthInterface extends BaseAuthInterface
 
     public function getUser();
 
-    public function getModel(bool $shared = true) : Model;
+    public function getModel(bool $shared = true);
 
 }

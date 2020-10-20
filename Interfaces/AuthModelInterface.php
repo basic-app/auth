@@ -11,4 +11,6 @@ interface AuthModelInterface
 
     public function validatePassword($user, string $password) : bool;
 
+    public function encodePassword($user, string $password) : string
+
 }
