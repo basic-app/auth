@@ -5,5 +5,8 @@
         "psr-4": {
             "BasicApp\\Auth\\": ""
         }
+    },
+    "require" : {
+        "basic-app/auth" : "*"
     }
 }
