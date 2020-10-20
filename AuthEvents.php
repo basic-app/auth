@@ -21,11 +21,13 @@ class AuthEvents extends \CodeIgniter\Events\Events
         static::on(static::EVENT_LOGIN, $callback);
     }
 
-    public static function login($user, &$error = null)
+    public static function login($model, $user, &$error = null)
     {
         $event = new LoginEvent;
 
         $event->user = $user;
+
+        $event->model = $model;
 
         static::trigger(static::EVENT_LOGIN, $event);
 
@@ -39,11 +41,13 @@ class AuthEvents extends \CodeIgniter\Events\Events
         static::on(static::EVENT_LOGOUT, $callback);
     }
 
-    public static function logout($user)
+    public static function logout($model, $user)
     {
         $event = new LogoutEvent;
 
         $event->user = $user;
+
+        $event->model = $model;
 
         static::trigger(static::EVENT_LOGOUT, $event);
     }

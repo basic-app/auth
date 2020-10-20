@@ -9,6 +9,8 @@ namespace BasicApp\Auth\Events;
 class LogoutEvent
 {
 
+    public $model;
+
     public $user;
 
 }

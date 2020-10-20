@@ -9,6 +9,8 @@ namespace BasicApp\Auth\Events;
 class LoginEvent
 {
 
+    public $model;
+
     public $user;
 
     public $result = true;

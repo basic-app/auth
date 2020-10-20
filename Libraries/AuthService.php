@@ -7,6 +7,7 @@
 namespace BasicApp\Auth\Libraries;
 
 use BasicApp\Auth\Interfaces\AuthInterface;
+use BasicApp\Auth\AuthEvents;
 
 class AuthService extends BaseAuthService implements AuthInterface
 {
@@ -29,13 +30,13 @@ class AuthService extends BaseAuthService implements AuthInterface
 
     public function login($user, $rememberMe = true, &$error = null)
     {
-        if (!AuthEvents::login($user, $error))
+        $model = $this->getModel();
+
+        if (!AuthEvents::login($model, $user, $error))
         {
             return false;
         }
-
-        $model = $this->getModel();
-
+        
         $primaryKey = $model->primaryKey;
 
         if ($model->returnType == 'array')
@@ -48,7 +49,7 @@ class AuthService extends BaseAuthService implements AuthInterface
 
     public function logout()
     {
-        AuthEvents::logout($this->getUser());
+        AuthEvents::logout($this->getModel(), $this->getUser());
 
         $this->unsetUserId();
     }
