@@ -66,7 +66,7 @@ class AuthService extends BaseAuthService implements AuthInterface
 
                 if (!$this->_user)
                 {
-                    $this->logout();
+                    $this->unsetUserId();
                 }
             }
         }
