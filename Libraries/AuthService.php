@@ -6,7 +6,6 @@
  */
 namespace BasicApp\Auth\Libraries;
 
-use CodeIgniter\Model;
 use BasicApp\Auth\Interfaces\AuthInterface;
 
 class AuthService extends BaseAuthService implements AuthInterface
@@ -23,7 +22,7 @@ class AuthService extends BaseAuthService implements AuthInterface
         $this->_modelClass = $modelClass;
     }
 
-    public function getModel(bool $shared = true) : Model
+    public function getModel(bool $shared = true)
     {
         return model($this->_modelClass, $shared);
     }
