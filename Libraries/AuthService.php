@@ -20,9 +20,9 @@ class AuthService extends \BasicApp\Auth\Libraries\BaseAuthService
         $this->_modelClass = $modelClass;
     }
 
-    public function getModelClass()
+    public function getModel(bool $shared = true)
     {
-        return $this->_modelClass;
+        return model($this->_modelClass, $shared);
     }
 
     public function login($user, $rememberMe = true, &$error = null)
@@ -32,7 +32,7 @@ class AuthService extends \BasicApp\Auth\Libraries\BaseAuthService
             return false;
         }
 
-        $model = model($this->_modelClass);
+        $model = $this->getModel();
 
         $primaryKey = $model->primaryKey;
 
@@ -59,7 +59,7 @@ class AuthService extends \BasicApp\Auth\Libraries\BaseAuthService
 
             if ($id)
             {
-                $this->_user = model($this->_modelClass)->find($id);
+                $this->_user = $this->getModel()->find($id);
 
                 if (!$this->_user)
                 {
