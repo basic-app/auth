@@ -12,9 +12,9 @@ use BasicApp\Auth\Events\LogoutEvent;
 class AuthEvents extends \CodeIgniter\Events\Events
 {
 
-    const EVENT_LOGIN = 'login';
+    const EVENT_LOGIN = 'ba:login';
 
-    const EVENT_LOGOUT = 'logout';
+    const EVENT_LOGOUT = 'ba:logout';
 
     public static function onLogin($callback)
     {
