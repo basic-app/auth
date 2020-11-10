@@ -49,15 +49,21 @@ class AuthService extends BaseAuthService implements AuthInterface
 
     public function logout()
     {
-        AuthEvents::logout($this->getModel(), $this->getUser());
+        $user = $this->getUser();
+
+        assert($user ? true : false, get_class($this) . '::getUser');
+
+        AuthEvents::logout($this->getModel(), $user);
 
         $this->unsetUserId();
     }
 
-    public function getUser()
+    public function getUser(bool $refresh = false)
     {
-        if (!$this->_user)
+        if (!$this->_user || $refresh)
         {
+            $this->_user = null;
+
             $id = $this->getUserId();
 
             if ($id)

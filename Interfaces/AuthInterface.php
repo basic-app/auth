@@ -13,7 +13,7 @@ interface AuthInterface extends BaseAuthInterface
 
     public function logout();
 
-    public function getUser();
+    public function getUser(bool $refresh = false);
 
     public function getModel(bool $shared = true);
 
