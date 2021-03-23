@@ -6,12 +6,12 @@
  */
 namespace BasicApp\Auth;
 
-abstract class BaseAuthService
+abstract class BasicAuthService
 {
 
     public $sessionKey;
 
-    public function __construct(string $sessionKey = 'userId')
+    public function __construct(string $sessionKey = 'user')
     {
         $this->sessionKey = $sessionKey;
     }

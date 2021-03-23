@@ -6,7 +6,7 @@
  */
 namespace BasicApp\Auth;
 
-class AuthService extends BaseAuthService
+class AuthService extends BasicAuthService
 {
 
     public $cookie;
