@@ -22,7 +22,7 @@ class AuthService extends BasicAuthService
         $this->token = $cookie ?? new AuthToken($this->sessionKey . '_token');
     }
 
-    public function setId($id, $rememberMe = true)
+    public function setId($id, bool $rememberMe = true, int $expire = 0)
     {
         $this->unsetId();
 
@@ -32,7 +32,7 @@ class AuthService extends BasicAuthService
 
             $this->token->set($token);
 
-            $this->cookie->set($token, is_int($rememberMe) ? $rememberMe : 0);
+            $this->cookie->set($token, $expire);
         }
 
         return parent::setId($id);
