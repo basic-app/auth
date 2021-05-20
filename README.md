@@ -1,3 +1,1 @@
-# auth
-
-TODO: remove deprecated files.
+# Basic App Auth

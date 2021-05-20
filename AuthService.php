@@ -9,17 +9,17 @@ namespace BasicApp\Auth;
 class AuthService extends BasicAuthService
 {
 
-    public $cookie;
+    protected $tokenCookie;
 
-    public $token;
+    protected $token;
 
-    public function __construct(string $sessionKey = 'user', $cookie = null, $token = null)
+    public function __construct(string $sessionKey = 'user')
     {
         parent::__construct($sessionKey);
 
-        $this->cookie = $cookie ?? new AuthCookie($this->sessionKey . '_token');
+        $this->tokenCookie = new TokenCookie($this->sessionKey . '_token');
 
-        $this->token = $cookie ?? new AuthToken($this->sessionKey . '_token');
+        $this->token = new Token($this->sessionKey . '_token');
     }
 
     public function setId($id, bool $rememberMe = true, int $expire = 0)
@@ -32,7 +32,7 @@ class AuthService extends BasicAuthService
 
             $this->token->set($token);
 
-            $this->cookie->set($token, $expire);
+            $this->tokenCookie->set($token, $expire);
         }
 
         return parent::setId($id);
@@ -48,7 +48,7 @@ class AuthService extends BasicAuthService
 
             if ($token)
             {         
-                if ($this->cookie->get() != $token)
+                if ($this->tokenCookie->get() != $token)
                 {
                     $this->unsetId();
 
@@ -66,7 +66,7 @@ class AuthService extends BasicAuthService
 
     public function unsetId()
     {
-        $this->cookie->delete();
+        $this->tokenCookie->delete();
 
         $this->token->remove();
 
