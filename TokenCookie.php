@@ -80,6 +80,11 @@ class TokenCookie
 
     public function delete()
     {
+        if (!$this->get())
+        {
+            return;
+        }
+
         helper(['cookie']);
 
         return delete_cookie(
