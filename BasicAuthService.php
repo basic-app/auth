@@ -6,7 +6,9 @@
  */
 namespace BasicApp\Auth;
 
-abstract class BasicAuthService
+use Exception;
+
+abstract class BasicAuthService implements AuthInterface
 {
 
     public $sessionKey;
@@ -16,8 +18,18 @@ abstract class BasicAuthService
         $this->sessionKey = $sessionKey;
     }
 
-    public function setId($id)
+    public function setId($id, bool $rememberMe = true, int $expires = 0)
     {
+        if (!$rememberMe)
+        {
+            throw new Exception('The rememberMe argument is not implemented.');
+        }
+
+        if ($expires)
+        {
+            throw new Exception('The expires argument is not implemented.');
+        }
+
         return service('session')->set($this->sessionKey, $id);
     }
 
