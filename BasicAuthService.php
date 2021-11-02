@@ -8,7 +8,7 @@ namespace BasicApp\Auth;
 
 use Exception;
 
-abstract class BasicAuthService implements AuthInterface
+abstract class BasicAuthService implements AuthServiceInterface
 {
 
     public $sessionKey;
@@ -41,6 +41,16 @@ abstract class BasicAuthService implements AuthInterface
     public function unsetId()
     {
         return service('session')->remove($this->sessionKey);
+    }
+
+    public function isGuest() : bool
+    {
+        return $this->getId() ? false : true;
+    }
+
+    public function isLogged() : bool
+    {
+        return $this->getId() ? true : false;
     }
 
 }

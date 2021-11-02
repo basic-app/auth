@@ -6,7 +6,7 @@
  */
 namespace BasicApp\Auth;
 
-interface AuthInterface
+interface AuthServiceInterface
 {
 
     public function setId($id, bool $rememberMe = true, int $expires = 0);
@@ -14,5 +14,9 @@ interface AuthInterface
     public function getId();
 
     public function unsetId();
+
+    public function isGuest() : bool;
+
+    public function isLogged() : bool;
 
 }
