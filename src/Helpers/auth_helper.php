@@ -24,7 +24,7 @@ if (!function_exists('logout'))
                 service('response')->setCookie($cookie);
             }
 
-            service('session')->remove($guard);
+            service('session')->remove($guard . '_id');
             service('session')->remove($guard . '_token');
 
             Events::on('logout', $user_id, $guard);
