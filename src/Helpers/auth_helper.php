@@ -8,7 +8,7 @@ use CodeIgniter\Cookie\Cookie;
 
 if (!function_exists('user_id'))
 {
-    function user_id($set_user_id = null, bool $rememberMe = true)
+    function user_id($set_user_id = null, bool $rememberMe = true, $guard = 'user')
     {
         if ($set_user_id)
         {
@@ -16,16 +16,16 @@ if (!function_exists('user_id'))
             user_id(false);
 
             // login
-            service('session')->set('user_id', $set_user_id);
+            service('session')->set($guard . '_id', $set_user_id);
 
             // set remember flag
             if (!$rememberMe)
             {    
                 $token = md5(time() . rand(0, PHP_INT_MAX));
 
-                service('session')->set('user_id_token', $token);
+                service('session')->set($guard . '_token', $token);
 
-                $cookie = new Cookie('user_id_token', $token, [
+                $cookie = new Cookie($guard . '_token', $token, [
                     'expires' => 0,
                     'httponly' => false
                 ]);
@@ -33,19 +33,19 @@ if (!function_exists('user_id'))
                 service('response')->setCookie($cookie);
             }
 
-            Events::on('login', $set_user_id);
+            Events::on('login', $set_user_id, $guard);
 
             return $set_user_id;
         }
 
-        $user_id = service('session')->get('user_id');
+        $user_id = service('session')->get($guard . '_id');
 
         if ($user_id && !$set_user_id && ($set_user_id !== null))
         {
             // logout
-            if (cookies()->has('user_id_token'))
+            if (cookies()->has($guard . '_token'))
             {
-                $cookie = new Cookie('user_id_token', '', [
+                $cookie = new Cookie($guard . '_token', '', [
                     'expires' => 0,
                     'httponly' => false
                 ]);
@@ -53,21 +53,21 @@ if (!function_exists('user_id'))
                 cookies()->put($cookie);
             }
 
-            service('session')->remove('user_id');
-            service('session')->remove('user_id_token');
+            service('session')->remove($guard);
+            service('session')->remove($guard . '_token');
 
-            Events::on('logout', $user_id);
+            Events::on('logout', $user_id, $guard);
 
             return null;
         }
 
         // check remember flag
 
-        $token = service('session')->get('user_id_token');
+        $token = service('session')->get($guard . '_token');
 
         if ($token)
         {         
-            if (service('request')->getCookie('user_id_token') != $token)
+            if (service('request')->getCookie($guard . '_token') != $token)
             {
                 user_id(false);
 
