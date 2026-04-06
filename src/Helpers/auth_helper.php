@@ -10,20 +10,25 @@ if (!function_exists('logout'))
 {
     function logout($guard = 'user')
     {
-        if (cookies()->has($guard . '_token'))
+        $user_id = user_id($guard);
+
+        if ($user_id)
         {
-            $cookie = new Cookie($guard . '_token', '', [
-                'expires' => 0,
-                'httponly' => false
-            ]);
+            if (cookies()->has($guard . '_token'))
+            {
+                $cookie = new Cookie($guard . '_token', '', [
+                    'expires' => 0,
+                    'httponly' => false
+                ]);
 
-            service('response')->setCookie($cookie);
+                service('response')->setCookie($cookie);
+            }
+
+            service('session')->remove($guard);
+            service('session')->remove($guard . '_token');
+
+            Events::on('logout', $user_id, $guard);
         }
-
-        service('session')->remove($guard);
-        service('session')->remove($guard . '_token');
-
-        Events::on('logout', $user_id, $guard);
     }
 }
 
