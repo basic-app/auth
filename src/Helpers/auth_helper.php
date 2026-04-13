@@ -25,9 +25,17 @@ if (!function_exists('logout'))
             }
 
             service('session')->remove($guard . '_id');
+            
             service('session')->remove($guard . '_token');
 
-            Events::on('logout', $user_id, $guard);
+            if ($guard != 'user')
+            {
+                Events::on('logout_' . $guard, $user_id);
+            }
+            else
+            {
+                Events::on('logout', $user_id);
+            }
         }
     }
 }
@@ -57,7 +65,14 @@ if (!function_exists('login'))
             service('response')->setCookie($cookie);
         }
 
-        Events::on('login', $user_id, $guard);
+        if ($guard != 'user')
+        {
+            Events::on('login_' . $guard, $user_id);
+        }
+        else
+        {
+            Events::on('login', $user_id);
+        }
     }
 }
 
