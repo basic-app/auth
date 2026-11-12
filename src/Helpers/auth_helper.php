@@ -6,46 +6,12 @@
 use CodeIgniter\Events\Events;
 use CodeIgniter\Cookie\Cookie;
 
-if (!function_exists('logout'))
+if (!function_exists('auth_login'))
 {
-    function logout($guard = 'user')
-    {
-        $user_id = user_id($guard);
-
-        if ($user_id)
-        {
-            if (cookies()->has($guard . '_token'))
-            {
-                $cookie = new Cookie($guard . '_token', '', [
-                    'expires' => 0,
-                    'httponly' => false
-                ]);
-
-                service('response')->setCookie($cookie);
-            }
-
-            service('session')->remove($guard . '_id');
-            
-            service('session')->remove($guard . '_token');
-
-            if ($guard != 'user')
-            {
-                Events::on('logout_' . $guard, $user_id);
-            }
-            else
-            {
-                Events::on('logout', $user_id);
-            }
-        }
-    }
-}
-
-if (!function_exists('login'))
-{
-    function login($user_id = null, bool $remember_me = true, $guard = 'user')
+    function auth_login($user_id, bool $remember_me = true, $guard = 'user')
     {
         // logout old session
-        logout($guard);
+        auth_logout($guard);
 
         // login
         service('session')->set($guard . '_id', $user_id);
@@ -76,9 +42,9 @@ if (!function_exists('login'))
     }
 }
 
-if (!function_exists('user_id'))
+if (!function_exists('auth_user_id'))
 {
-    function user_id($guard = 'user')
+    function auth_user_id($guard = 'user')
     {
         $user_id = service('session')->get($guard . '_id');
         
@@ -91,7 +57,7 @@ if (!function_exists('user_id'))
             {         
                 if (service('request')->getCookie($guard . '_token') != $token)
                 {
-                    logout($guard);
+                    auth_logout($guard);
 
                     return null;   
                 }
@@ -101,5 +67,39 @@ if (!function_exists('user_id'))
         }
 
         return null;
+    }
+}
+
+if (!function_exists('auth_logout'))
+{
+    function auth_logout($guard = 'user')
+    {
+        $user_id = auth_user_id($guard);
+
+        if ($user_id)
+        {
+            if (cookies()->has($guard . '_token'))
+            {
+                $cookie = new Cookie($guard . '_token', '', [
+                    'expires' => 0,
+                    'httponly' => false
+                ]);
+
+                service('response')->setCookie($cookie);
+            }
+
+            service('session')->remove($guard . '_id');
+            
+            service('session')->remove($guard . '_token');
+
+            if ($guard != 'user')
+            {
+                Events::on('logout_' . $guard, $user_id);
+            }
+            else
+            {
+                Events::on('logout', $user_id);
+            }
+        }
     }
 }
