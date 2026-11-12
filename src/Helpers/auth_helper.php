@@ -18,7 +18,7 @@ if (!function_exists('auth_login'))
 
         // set remember flag
         if (!$remember_me)
-        {    
+        { 
             $token = md5(time() . rand(0, PHP_INT_MAX));
 
             service('session')->set($guard . '_token', $token);
@@ -54,8 +54,10 @@ if (!function_exists('auth_user_id'))
             $token = service('session')->get($guard . '_token');
 
             if ($token)
-            {         
-                if (service('request')->getCookie($guard . '_token') != $token)
+            {
+                $cookie_token = service('request')->getCookie($guard . '_token');
+
+                if ($cookie_token != $token)
                 {
                     auth_logout($guard);
 
@@ -74,24 +76,22 @@ if (!function_exists('auth_logout'))
 {
     function auth_logout($guard = 'user')
     {
+        if (cookies()->has($guard . '_token'))
+        {
+            $cookie = new Cookie($guard . '_token', '', [
+                'expires' => 0,
+                'httponly' => false
+            ]);
+
+            service('response')->setCookie($cookie);
+        }
+
+        service('session')->remove($guard . '_token');
+
         $user_id = auth_user_id($guard);
 
         if ($user_id)
         {
-            if (cookies()->has($guard . '_token'))
-            {
-                $cookie = new Cookie($guard . '_token', '', [
-                    'expires' => 0,
-                    'httponly' => false
-                ]);
-
-                service('response')->setCookie($cookie);
-            }
-
-            service('session')->remove($guard . '_id');
-            
-            service('session')->remove($guard . '_token');
-
             if ($guard != 'user')
             {
                 Events::on('logout_' . $guard, $user_id);
@@ -101,5 +101,7 @@ if (!function_exists('auth_logout'))
                 Events::on('logout', $user_id);
             }
         }
+
+        service('session')->remove($guard . '_id');
     }
 }
