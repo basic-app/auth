@@ -13,7 +13,7 @@ if (!function_exists('user_id'))
     }
 }
 
-if (!function_exists('user_id'))
+if (!function_exists('login'))
 {
     function login($id, bool $rememberMe = true)
     {
