@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @author Basic App Dev Team
  * @license MIT
  */
-if (!function_exists('user_id'))
-{
+if (!function_exists('user_id')) {
     function user_id()
     {
         helper(['auth']);
@@ -14,8 +14,7 @@ if (!function_exists('user_id'))
     }
 }
 
-if (!function_exists('login'))
-{
+if (!function_exists('login')) {
     function login($id, bool $rememberMe = true)
     {
         helper(['auth']);
@@ -24,8 +23,7 @@ if (!function_exists('login'))
     }
 }
 
-if (!function_exists('logout'))
-{
+if (!function_exists('logout')) {
     function logout()
     {
         helper(['auth']);
