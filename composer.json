@@ -1,6 +1,7 @@
 {
     "name": "basic-app/auth",
     "license": "MIT",
+    "description": "Ultra lightweight authentication for CodeIgniter 4",
     "autoload": {
         "psr-4": {
             "BasicApp\\Auth\\": "src/"
