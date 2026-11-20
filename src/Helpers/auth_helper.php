@@ -79,7 +79,7 @@ if (!function_exists('auth_logout')) {
 
         service('session')->remove($guard . '_token');
 
-        $user_id = auth_user_id($guard);
+        $user_id = service('session')->get($guard . '_id');
 
         if ($user_id) {
             if ($guard != 'user') {
